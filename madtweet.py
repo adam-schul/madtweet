@@ -1,4 +1,3 @@
-
 import re, sys, random, time
 from string import ascii_lowercase
 import spotipy
@@ -14,12 +13,27 @@ import sys
 words = open('nounlist.txt').read()
 words = re.findall(r'\w+', words)
 
-def chooseNoun():
-    for i in range(len(words)):
-        mainWord = random.choice(words)
-        
+verbs = open('verbs.txt').read()
+verbs = re.findall(r'\w+', verbs)
 
+adjective = open('adjectives.txt').read()
+adjective = re.findall(r'\w+', adjective)
+
+
+def chooseNoun():
+    mainWord = random.choice(words)
     return mainWord
+
+
+def chooseVerb():
+    mainWord = random.choice(verbs)
+    return mainWord
+
+
+def chooseAdj():
+    mainWord = random.choice(adjective)
+    return mainWord
+
 
 # Twitter personal details
 consumer_key = "pZP7kFlAFKpegNSDIr5sLqUcr"
@@ -35,8 +49,21 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth, wait_on_rate_limit=True)
 
-chosenNoun = chooseNoun()
 
-# Execute the tweet
-api.update_status(status=chosenNoun)
+def goViralOnTwitter():
+    print(adjective1 + ' ' + noun1 + 's who ' + verb + ' ' + noun2 + 's are ' + adjective2)
 
+
+for i in range(500):
+    # Choose random words
+    noun1 = chooseNoun()
+    noun2 = chooseNoun()
+    adjective1 = chooseAdj()
+    adjective2 = chooseAdj()
+    verb = chooseVerb()
+
+    # Churn out 500 viral tweets babyyyyyyyyy
+    goViralOnTwitter()
+
+
+api.update_status(status=adjective1 + ' ' + noun1 + 's who ' + verb + ' ' + noun2 + 's are ' + adjective2)
